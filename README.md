@@ -1,38 +1,107 @@
-# Broken Outlaws – Foldable Stools & Chairs (RedM / VORP)
-Sit anywhere with foldable stools/chairs.
-Works by item or by command.
-Supports multiple chair models, per-chair offsets, safe restarts.
+Broken Outlaws — Multi-Stool/Chair
+
+Sit anywhere with style. This resource adds six portable, foldable stools/chairs that players can deploy and sit on—either via chat commands or inventory items—fully configurable per model with sane safety checks and cleanup.
+
+Framework: RedM (RDR3) • Dependencies: vorp_core, vorp_inventory
+Resource name: broken_outlaws_stool
+
+✨ Features
+
+Two usage modes
+
+Command Mode: /sitstool1 … /sitstool6, /standup
+
+Item Mode: use inventory items (registers usable items dynamically)
+
+Per-chair config (model, scenario, Z/rotation/front offsets)
+
+Safety checks: blocks use while dead, swimming, in vehicles, or mounted
+
+Cooldown to prevent spam (client + server side)
+
+Auto cleanup: removes stray/attached chair props near the player
+
+Restart-safe: clears scenarios and attached props on (re)start/stop
+
+Debug mode: verbose logs for quick troubleshooting
+
+SQL + Icons: ready-to-import items + six 96×96 PNGs
+
+📦 Requirements
+
+RedM (rdr3)
+
+VORP Core (vorp_core)
+
+VORP Inventory (vorp_inventory)
+
+oxmysql (server uses @oxmysql/lib/MySQL.lua)
+
+🔧 Installation
+
+Place the resource
+
+resources/[broken_outlaws]/broken_outlaws_stool
 
 
-## Requirements
-* RedM (citizenfx), VORP Core, **vorp_inventory**
+Add to your server cfg (ensure order)
 
-## (quick) Install
-1. Copy resource to your resources folder.
-2. Run `sql/item_db to add items to your database.
-3. Add the PNG'S provided in folder 'PNG'S' to vorp Inventory: \resources\[VORP]\[vorp_essentials]\vorp_inventory\html\img
-3. Ensure in 'server.cfg': ensure broken_outlaws_stool
+ensure vorp_core
+ensure vorp_inventory
+ensure broken_outlaws_stool
 
-## Config
-* debug mode
-* UseItemToSit = true → use items only;
-* UseItemToSit = false → use commands only.
-* CommandGetUp = 'standup'   -- to stand up
-* UseCooldown = 2.5   
-* CommandGetUp = 'sitstool1' -- to sit on 'Old Foldable Stool'
-* CommandGetUp = 'sitstool2' -- to sit on 'New Foldable Stool'
-* CommandGetUp = 'sitstool3' -- to sit on 'Old Foldable Chair'
-* CommandGetUp = 'sitstool4' -- to sit on 'New Foldable Chair'
-* CommandGetUp = 'sitstool5' -- to sit on 'Luxury Foldable Chair'
-* CommandGetUp = 'sitstool6' -- to sit on 'Foldable Beach Chair'
 
-## Scenarios (you can look for more but they need to be for male and felmale - change it in the config)
-- PROP_HUMAN_SEAT_CHAIR_MORTAR_PESTLE   -- Old Foldable Chair
-- PROP_HUMAN_SEAT_CHAIR_PORCH           -- New Foldable Chair
-- PROP_HUMAN_SEAT_CHAIR_SMOKE_ROLL      -- Old Foldable Stool
-- PROP_HUMAN_SEAT_CHAIR_TRAIN           -- Foldable Beach Chair
-- PROP_HUMAN_SEAT_CHAIR_SKETCHING       -- Luxury Foldable Chair
-- PROP_HUMAN_SEAT_CHAIR_SMOKING         -- New Foldable Stool
+Import items (SQL) & add icons
 
-## Credits
-* Author: **IIIDUTCHIII - Broken Outlaws Roleplay**
+Run the SQL below (adjust to your schema/columns).
+
+Put the six PNG icons (96×96) where your inventory expects them and map their filenames (see SQL example).
+
+Configure in config.lua (see next section).
+
+⚙️ Configuration (config.lua)
+DebugMode     = false      -- Verbose logs for testing
+UseItemToSit  = false      -- true: Item Mode | false: Command Mode
+CommandGetUp  = 'standup'  -- Command to stand up in Command Mode
+UseCooldown   = 2.5        -- Seconds (server + client)
+
+Item = {
+  -- Per-chair example:
+  {
+    item       = "old_foldable_stool",      -- Inventory item name
+    label      = "Old Foldable Stool",      -- Display label
+    CommandSit = "sitstool1",               -- Command (Command Mode)
+    PropModel  = "p_stoolfolding01bx",      -- World model
+    Scenario   = "PROP_HUMAN_SEAT_CHAIR_MORTAR_PESTLE",
+    ZOffset    = 0.48,                      -- Up/Down
+    ROffset    = 0,                         -- Yaw correction (°)
+    FOffset    = 0.16                       -- Forward/Back (m)
+  },
+  -- … five more presets included out of the box
+}
+
+
+Tip: Use ZOffset, ROffset, and FOffset to perfectly align the ped on each seat.
+
+🕹 Usage
+Command Mode (UseItemToSit = false)
+
+Sit: /sitstool1 … /sitstool6 (one per configured chair)
+
+Stand: /<CommandGetUp> (default /standup)
+
+Item Mode (UseItemToSit = true)
+
+Use the inventory item (e.g., Old Foldable Stool) to toggle sit/stand.
+
+Inventory closes automatically after use.
+
+🙌 Credits
+
+Team Broken Outlaws — design, testing, & polish
+
+Community members who helped test positions & scenarios
+
+📜 License
+
+Use on your RedM server(s). Please keep the author credit in the manifest. Do not resell as-is.
