@@ -1,65 +1,46 @@
-Broken Outlaws — Multi-Stool/Chair
+# Broken Outlaws — Multi-Stool/Chair
 
 Sit anywhere with style. This resource adds six portable, foldable stools/chairs that players can deploy and sit on—either via chat commands or inventory items—fully configurable per model with sane safety checks and cleanup.
 
-Framework: RedM (RDR3) • Dependencies: vorp_core, vorp_inventory
+## Framework:
+RedM (RDR3) • Dependencies: vorp_core, vorp_inventory
 Resource name: broken_outlaws_stool
 
-✨ Features
+## ✨ Features
 
 Two usage modes
-
 Command Mode: /sitstool1 … /sitstool6, /standup
-
 Item Mode: use inventory items (registers usable items dynamically)
-
 Per-chair config (model, scenario, Z/rotation/front offsets)
-
 Safety checks: blocks use while dead, swimming, in vehicles, or mounted
-
 Cooldown to prevent spam (client + server side)
-
 Auto cleanup: removes stray/attached chair props near the player
-
 Restart-safe: clears scenarios and attached props on (re)start/stop
-
 Debug mode: verbose logs for quick troubleshooting
-
 SQL + Icons: ready-to-import items + six 96×96 PNGs
 
-📦 Requirements
+## 📦 Requirements
 
 RedM (rdr3)
-
 VORP Core (vorp_core)
-
 VORP Inventory (vorp_inventory)
-
 oxmysql (server uses @oxmysql/lib/MySQL.lua)
 
-🔧 Installation
+## 🔧 Installation
 
 Place the resource
-
 resources/[broken_outlaws]/broken_outlaws_stool
-
-
 Add to your server cfg (ensure order)
-
 ensure vorp_core
 ensure vorp_inventory
 ensure broken_outlaws_stool
-
-
 Import items (SQL) & add icons
-
 Run the SQL below (adjust to your schema/columns).
-
 Put the six PNG icons (96×96) where your inventory expects them and map their filenames (see SQL example).
-
 Configure in config.lua (see next section).
 
-⚙️ Configuration (config.lua)
+## ⚙️ Configuration (config.lua)
+```lua
 DebugMode     = false      -- Verbose logs for testing
 UseItemToSit  = false      -- true: Item Mode | false: Command Mode
 CommandGetUp  = 'standup'  -- Command to stand up in Command Mode
@@ -82,26 +63,22 @@ Item = {
 
 
 Tip: Use ZOffset, ROffset, and FOffset to perfectly align the ped on each seat.
+```
 
-🕹 Usage
+## 🕹 Usage
+
 Command Mode (UseItemToSit = false)
-
 Sit: /sitstool1 … /sitstool6 (one per configured chair)
-
 Stand: /<CommandGetUp> (default /standup)
-
 Item Mode (UseItemToSit = true)
-
 Use the inventory item (e.g., Old Foldable Stool) to toggle sit/stand.
-
 Inventory closes automatically after use.
 
-🙌 Credits
+## 🙌 Credits
 
 Team Broken Outlaws — design, testing, & polish
-
 Community members who helped test positions & scenarios
 
-📜 License
+## 📜 License
 
 Use on your RedM server(s). Please keep the author credit in the manifest. Do not resell as-is.
