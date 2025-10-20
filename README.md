@@ -1,4 +1,4 @@
-# 🪑Broken Outlaws — Multi-Stool/Chair🪑
+# 🪑Broken Outlaws — Multi-Stool/Chair (RedM/VORP)🪑
 
 Sit anywhere with style. This resource adds six portable, foldable stools/chairs that players can deploy and sit on—either via chat commands or inventory items—fully configurable per model with sane safety checks and cleanup.
 
